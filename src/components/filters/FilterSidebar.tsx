@@ -24,32 +24,32 @@ export function FilterSidebar({ profiles, locations, durations }: FilterSidebarP
   } = useFilterStore();
 
   return (
-    <div className="w-full bg-white border border-gray-200/75 rounded-lg p-4 shadow-sm">
+    <div className="w-full bg-white border border-gray-200/70 rounded-lg p-3.5 shadow-sm">
       {/* Header */}
-      <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
-        <div className="flex items-center gap-1.5 text-brand-gray-dark font-bold text-sm">
-          <Filter className="w-4 h-4 text-brand-blue" />
+      <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-slate-100">
+        <div className="flex items-center gap-1.5 text-brand-gray-dark font-bold text-xs sm:text-sm">
+          <Filter className="w-3.5 h-3.5 text-brand-blue" />
           <span>Filters</span>
         </div>
         <button
           onClick={resetFilters}
-          className="text-[11px] font-bold text-brand-blue hover:text-brand-blue-hover flex items-center gap-0.5 transition-colors cursor-pointer"
+          className="text-[10px] font-bold text-brand-blue hover:text-brand-blue-hover flex items-center gap-0.5 transition-colors cursor-pointer"
         >
           <RotateCcw className="w-2.5 h-2.5" />
           Clear all
         </button>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {/* Profile Filter */}
         <div>
-          <label className="block text-[11px] font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">
+          <label className="block text-[10px] font-semibold text-gray-400 mb-1 uppercase tracking-wide">
             Profile
           </label>
           <select
             value={profile}
             onChange={(e) => setProfile(e.target.value)}
-            className="w-full h-9 px-2.5 border border-gray-200 rounded text-xs focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue bg-white cursor-pointer hover:border-gray-300 transition-colors"
+            className="w-full h-8 px-2 border border-gray-200 rounded text-xs focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue bg-white cursor-pointer hover:border-gray-300 transition-colors"
           >
             <option value="">Select Profile</option>
             {profiles.map((p) => (
@@ -62,14 +62,14 @@ export function FilterSidebar({ profiles, locations, durations }: FilterSidebarP
 
         {/* Location Filter */}
         <div>
-          <label className="block text-[11px] font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">
+          <label className="block text-[10px] font-semibold text-gray-400 mb-1 uppercase tracking-wide">
             Location
           </label>
           <select
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             disabled={wfh}
-            className="w-full h-9 px-2.5 border border-gray-200 rounded text-xs focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue bg-white disabled:opacity-50 disabled:bg-slate-50 cursor-pointer hover:border-gray-300 transition-colors"
+            className="w-full h-8 px-2 border border-gray-200 rounded text-xs focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue bg-white disabled:opacity-50 disabled:bg-slate-50 cursor-pointer hover:border-gray-300 transition-colors"
           >
             <option value="">Select Location</option>
             {locations.map((loc) => (
@@ -97,7 +97,7 @@ export function FilterSidebar({ profiles, locations, durations }: FilterSidebarP
           />
           <label
             htmlFor="wfh-checkbox"
-            className="text-xs font-semibold text-brand-gray-dark cursor-pointer select-none"
+            className="text-[11px] font-semibold text-brand-gray-dark cursor-pointer select-none"
           >
             Work from home
           </label>
@@ -105,13 +105,13 @@ export function FilterSidebar({ profiles, locations, durations }: FilterSidebarP
 
         {/* Duration Filter */}
         <div>
-          <label className="block text-[11px] font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">
+          <label className="block text-[10px] font-semibold text-gray-400 mb-1 uppercase tracking-wide">
             Duration
           </label>
           <select
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
-            className="w-full h-9 px-2.5 border border-gray-200 rounded text-xs focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue bg-white cursor-pointer hover:border-gray-300 transition-colors"
+            className="w-full h-8 px-2 border border-gray-200 rounded text-xs focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue bg-white cursor-pointer hover:border-gray-300 transition-colors"
           >
             <option value="">Select Duration</option>
             {durations.map((d) => (
@@ -124,12 +124,12 @@ export function FilterSidebar({ profiles, locations, durations }: FilterSidebarP
 
         {/* Stipend radio group */}
         <div>
-          <label className="block text-[11px] font-semibold text-gray-500 mb-2 uppercase tracking-wide">
+          <label className="block text-[10px] font-semibold text-gray-400 mb-1.5 uppercase tracking-wide">
             Minimum Monthly Stipend
           </label>
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             {STIPEND_OPTIONS.map((opt) => (
-              <label key={opt.value} className="flex items-center gap-2 text-xs text-brand-gray-dark font-medium cursor-pointer select-none">
+              <label key={opt.value} className="flex items-center gap-2 text-[11px] text-brand-gray-dark font-medium cursor-pointer select-none">
                 <input
                   type="radio"
                   name="min-stipend"

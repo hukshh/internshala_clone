@@ -10,7 +10,7 @@ interface InternshipMetaItemProps {
 export function InternshipMetaItem({ label, value }: InternshipMetaItemProps) {
   return (
     <div className="flex flex-col gap-0.5 min-w-0">
-      <span className="text-[10px] uppercase font-semibold text-gray-400 tracking-wider">
+      <span className="text-[10px] uppercase font-medium text-gray-400 tracking-wider">
         {label}
       </span>
       <span className="text-xs sm:text-[13px] text-gray-700 font-medium break-words">
@@ -37,7 +37,7 @@ export function InternshipCard({ internship }: InternshipCardProps) {
       : 'Work From Home';
 
   return (
-    <div className="bg-white border border-gray-200/60 rounded-lg p-4 sm:p-5 hover:shadow-md transition-all duration-300 hover:border-gray-300">
+    <div className="bg-white border border-gray-200/60 rounded-lg p-3.5 sm:p-4.5 hover:shadow-[0_2px_8px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-gray-300">
       {/* Title & Company Name */}
       <div className="mb-2">
         <h3 className="text-sm sm:text-[15px] font-semibold text-gray-800 hover:text-brand-blue transition-colors leading-snug">
@@ -49,13 +49,13 @@ export function InternshipCard({ internship }: InternshipCardProps) {
       </div>
 
       {/* Location */}
-      <div className="flex items-start gap-1 text-[11px] sm:text-xs text-gray-500 mb-3.5 leading-relaxed">
+      <div className="flex items-start gap-1 text-[11px] sm:text-xs text-gray-500 mb-2.5 leading-relaxed">
         <MapPin className="w-3.5 h-3.5 text-gray-400 flex-shrink-0 mt-0.5" />
         <span className="break-words">{locationText}</span>
       </div>
 
       {/* Grid details (Start Date, Duration, Stipend, Apply By) */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-3 mb-4 border-t border-slate-100/70 pt-3 pb-1">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-2.5 mb-3 border-t border-slate-100/60 pt-2.5 pb-0.5">
         <InternshipMetaItem 
           label="Start Date" 
           value={internship.start_date || 'Immediately'} 
@@ -75,7 +75,7 @@ export function InternshipCard({ internship }: InternshipCardProps) {
       </div>
 
       {/* Footer of Card: Badges and Action Link */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-1.5">
         {/* Badges */}
         <div className="flex flex-wrap items-center gap-1.5">
           {/* Posted On Tag */}

@@ -86,18 +86,18 @@ export function InternshipList({ internships, isLoading, isError }: InternshipLi
       <div className="space-y-4">
         <div className="h-5 w-32 bg-gray-200 animate-pulse rounded mb-3" />
         {[...Array(3)].map((_, i) => (
-          <div key={i} className="border border-gray-200/75 rounded-lg p-4 sm:p-5 bg-white space-y-4 shadow-sm">
-            <div className="space-y-2.5">
+          <div key={i} className="border border-gray-200/75 rounded-lg p-3.5 sm:p-4.5 bg-white space-y-3.5 shadow-sm">
+            <div className="space-y-2">
               <Skeleton className="h-4 w-1/3" />
               <Skeleton className="h-3 w-1/4" />
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-3 border-t border-slate-100/70 pt-3.5 pb-1">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-2.5 border-t border-slate-100/60 pt-2.5 pb-0.5">
               <Skeleton className="h-5 w-16" />
               <Skeleton className="h-5 w-16" />
               <Skeleton className="h-5 w-20" />
               <Skeleton className="h-5 w-16" />
             </div>
-            <div className="flex justify-between items-center pt-2">
+            <div className="flex justify-between items-center pt-1.5">
               <Skeleton className="h-5 w-24" />
               <Skeleton className="h-4 w-16" />
             </div>
