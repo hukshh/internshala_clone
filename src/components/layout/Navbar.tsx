@@ -4,6 +4,37 @@ import debounce from 'lodash.debounce';
 import { NAV_LINKS } from '@/constants';
 import { useFilterStore } from '@/store/filterStore';
 
+interface SearchInputProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClear: () => void;
+  placeholder?: string;
+  className?: string;
+}
+
+export function SearchInput({ value, onChange, onClear, placeholder = 'Search...', className }: SearchInputProps) {
+  return (
+    <div className={`relative flex items-center ${className}`}>
+      <Search className="absolute left-2.5 w-3.5 h-3.5 text-gray-400" />
+      <input
+        type="text"
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className="w-full h-8 pl-8 pr-7 text-xs bg-gray-50 border border-gray-200 rounded placeholder-gray-400/80 focus:outline-none focus:ring-1 focus:ring-brand-blue/30 focus:border-brand-blue focus:bg-white transition-all"
+      />
+      {value && (
+        <button
+          onClick={onClear}
+          className="absolute right-2.5 p-0.5 rounded-full hover:bg-gray-200 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+        >
+          <X className="w-3 h-3" />
+        </button>
+      )}
+    </div>
+  );
+}
+
 export function Navbar() {
   const { search, setSearch } = useFilterStore();
   const [localSearch, setLocalSearch] = React.useState(search);
@@ -37,17 +68,14 @@ export function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-white border-b border-brand-gray-border shadow-sm">
+    <nav className="sticky top-0 z-50 w-full bg-white border-b border-gray-150">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-14 items-center">
+        <div className="flex justify-between h-[52px] items-center">
           {/* Logo and Nav Links */}
           <div className="flex items-center gap-6">
-            <a href="#" className="flex items-center gap-1 text-lg font-bold tracking-tight">
-              <span className="text-[#008BD3]">intern</span>
-              <span className="text-[#00A5EC]">shala</span>
-              <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-brand-blue-light text-brand-blue border border-brand-blue/15 ml-0.5">
-                Clone
-              </span>
+            <a href="#" className="flex items-center text-lg font-bold tracking-tight select-none">
+              <span className="text-[#333333]">intern</span>
+              <span className="text-[#008BD3]">shala</span>
             </a>
             
             <div className="hidden md:flex items-center space-x-5">
@@ -55,7 +83,7 @@ export function Navbar() {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="text-xs font-semibold text-brand-gray-dark hover:text-brand-blue transition-colors"
+                  className="text-[13px] font-semibold text-gray-500 hover:text-[#008BD3] transition-colors"
                 >
                   {link.label}
                 </a>
@@ -63,33 +91,22 @@ export function Navbar() {
             </div>
           </div>
 
-          {/* Search bar inside navbar (desktop) */}
-          <div className="hidden sm:flex items-center relative w-60">
-            <Search className="absolute left-2.5 w-3.5 h-3.5 text-brand-gray" />
-            <input
-              type="text"
-              value={localSearch}
-              onChange={handleSearchChange}
-              placeholder="Search profile, company..."
-              className="w-full h-8 pl-8 pr-7 text-xs bg-brand-gray-light border border-brand-gray-border rounded focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue focus:bg-white transition-all"
-            />
-            {localSearch && (
-              <button
-                onClick={handleClear}
-                className="absolute right-2.5 text-[10px] text-brand-gray hover:text-brand-gray-dark cursor-pointer font-medium"
-              >
-                Clear
-              </button>
-            )}
-          </div>
+          {/* Desktop Search */}
+          <SearchInput
+            value={localSearch}
+            onChange={handleSearchChange}
+            onClear={handleClear}
+            placeholder="Search profile, company..."
+            className="hidden sm:flex w-56"
+          />
 
           {/* Hamburger Menu (mobile) */}
           <div className="flex md:hidden items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-brand-gray-dark hover:text-brand-blue focus:outline-none cursor-pointer p-1"
+              className="text-brand-gray-dark hover:text-[#008BD3] focus:outline-none cursor-pointer p-1"
             >
-              {mobileMenuOpen ? <X className="w-5.5 h-5.5" /> : <Menu className="w-5.5 h-5.5" />}
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
@@ -97,35 +114,24 @@ export function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-brand-gray-border px-4 pt-2 pb-4 space-y-3 shadow-md">
+        <div className="md:hidden bg-white border-b border-gray-150 px-4 pt-1.5 pb-3.5 space-y-2.5 shadow-sm transition-all duration-300">
           {NAV_LINKS.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="block py-2 text-sm font-semibold text-brand-gray-dark hover:text-brand-blue"
+              className="block py-1 text-sm font-semibold text-gray-500 hover:text-[#008BD3]"
             >
               {link.label}
             </a>
           ))}
-          {/* Mobile Search */}
-          <div className="flex items-center relative w-full pt-2">
-            <Search className="absolute left-3 w-4 h-4 text-brand-gray" />
-            <input
-              type="text"
-              value={localSearch}
-              onChange={handleSearchChange}
-              placeholder="Search profile, company..."
-              className="w-full h-9 pl-9 pr-8 text-sm bg-brand-gray-light border border-brand-gray-border rounded focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue"
-            />
-            {localSearch && (
-              <button
-                onClick={handleClear}
-                className="absolute right-3 text-xs text-brand-gray hover:text-brand-gray-dark"
-              >
-                Clear
-              </button>
-            )}
-          </div>
+          {/* Mobile Search using extracted SearchInput */}
+          <SearchInput
+            value={localSearch}
+            onChange={handleSearchChange}
+            onClear={handleClear}
+            placeholder="Search profile, company..."
+            className="w-full pt-1"
+          />
         </div>
       )}
     </nav>
