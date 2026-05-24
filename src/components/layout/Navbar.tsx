@@ -21,7 +21,7 @@ export function SearchInput({ value, onChange, onClear, placeholder = 'Search...
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full h-8 pl-8 pr-7 text-xs bg-gray-50 border border-gray-200 rounded placeholder-gray-400/80 focus:outline-none focus:ring-1 focus:ring-brand-blue/30 focus:border-brand-blue focus:bg-white transition-all"
+        className="w-full h-8 pl-8 pr-7 text-xs bg-gray-50/40 border border-gray-200/70 rounded placeholder-gray-400/60 focus:outline-none focus:ring-1 focus:ring-brand-blue/20 focus:border-brand-blue focus:bg-white transition-all"
       />
       {value && (
         <button
@@ -69,7 +69,7 @@ export function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-white border-b border-gray-150">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-[52px] items-center">
           {/* Logo and Nav Links */}
           <div className="flex items-center gap-6">
@@ -97,7 +97,7 @@ export function Navbar() {
             onChange={handleSearchChange}
             onClear={handleClear}
             placeholder="Search profile, company..."
-            className="hidden sm:flex w-56"
+            className="hidden sm:flex w-48"
           />
 
           {/* Hamburger Menu (mobile) */}

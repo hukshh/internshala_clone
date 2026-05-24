@@ -14,7 +14,7 @@ export function Layout({ children, filterSidebar }: LayoutProps) {
     <div className="min-h-screen bg-[#F8F9FA] flex flex-col">
       <Navbar />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
+      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
         {/* Mobile Filter Button */}
         <div className="flex justify-end mb-3 lg:hidden">
           <button
