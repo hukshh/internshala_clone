@@ -91,13 +91,13 @@ export function InternshipList({ internships, isLoading, isError }: InternshipLi
               <Skeleton className="h-4 w-1/3" />
               <Skeleton className="h-3 w-1/4" />
             </div>
-            <div className="flex gap-8 border-t border-slate-100 pt-3.5 pb-1">
-              <Skeleton className="h-3 w-16" />
-              <Skeleton className="h-3 w-16" />
-              <Skeleton className="h-3 w-20" />
-              <Skeleton className="h-3 w-16" />
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-3 border-t border-slate-100/70 pt-3.5 pb-1">
+              <Skeleton className="h-5 w-16" />
+              <Skeleton className="h-5 w-16" />
+              <Skeleton className="h-5 w-20" />
+              <Skeleton className="h-5 w-16" />
             </div>
-            <div className="flex justify-between items-center pt-2 border-t border-slate-50">
+            <div className="flex justify-between items-center pt-2">
               <Skeleton className="h-5 w-24" />
               <Skeleton className="h-4 w-16" />
             </div>
