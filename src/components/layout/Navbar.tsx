@@ -1,12 +1,11 @@
-import React from 'react';
+import { useState, type ChangeEvent } from 'react';
 import { Menu, Search, X } from 'lucide-react';
-import debounce from 'lodash.debounce';
 import { NAV_LINKS } from '@/constants';
 import { useFilterStore } from '@/store/filterStore';
 
 interface SearchInputProps {
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onClear: () => void;
   placeholder?: string;
   className?: string;
@@ -37,33 +36,13 @@ export function SearchInput({ value, onChange, onClear, placeholder = 'Search...
 
 export function Navbar() {
   const { search, setSearch } = useFilterStore();
-  const [localSearch, setLocalSearch] = React.useState(search);
-  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Keep local input state synchronized with store (e.g. on reset/clear)
-  React.useEffect(() => {
-    if (localSearch !== search) {
-      const timer = setTimeout(() => {
-        setLocalSearch(search);
-      }, 0);
-      return () => clearTimeout(timer);
-    }
-  }, [search, localSearch]);
-
-  // Debounced store update
-  const debouncedSetSearch = React.useMemo(
-    () => debounce((val: string) => setSearch(val), 300),
-    [setSearch]
-  );
-
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setLocalSearch(value);
-    debouncedSetSearch(value);
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
   };
 
   const handleClear = () => {
-    setLocalSearch('');
     setSearch('');
   };
 
@@ -93,7 +72,7 @@ export function Navbar() {
 
           {/* Desktop Search */}
           <SearchInput
-            value={localSearch}
+            value={search}
             onChange={handleSearchChange}
             onClear={handleClear}
             placeholder="Search profile, company..."
@@ -124,9 +103,9 @@ export function Navbar() {
               {link.label}
             </a>
           ))}
-          {/* Mobile Search using extracted SearchInput */}
+          {/* Mobile Search */}
           <SearchInput
-            value={localSearch}
+            value={search}
             onChange={handleSearchChange}
             onClear={handleClear}
             placeholder="Search profile, company..."
