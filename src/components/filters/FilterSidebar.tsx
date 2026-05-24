@@ -6,9 +6,17 @@ interface FilterSidebarProps {
   profiles: string[];
   locations: string[];
   durations: string[];
+  hideHeader?: boolean;
+  className?: string;
 }
 
-export function FilterSidebar({ profiles, locations, durations }: FilterSidebarProps) {
+export function FilterSidebar({ 
+  profiles, 
+  locations, 
+  durations,
+  hideHeader = false,
+  className
+}: FilterSidebarProps) {
   const {
     profile,
     setProfile,
@@ -24,21 +32,23 @@ export function FilterSidebar({ profiles, locations, durations }: FilterSidebarP
   } = useFilterStore();
 
   return (
-    <div className="w-full bg-white border border-gray-200/70 rounded-lg p-3.5 shadow-sm">
+    <div className={className || "w-full bg-white border border-gray-200/70 rounded-lg p-3.5 shadow-sm"}>
       {/* Header */}
-      <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-slate-100">
-        <div className="flex items-center gap-1.5 text-brand-gray-dark font-bold text-xs sm:text-sm">
-          <Filter className="w-3.5 h-3.5 text-brand-blue" />
-          <span>Filters</span>
+      {!hideHeader && (
+        <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-slate-100">
+          <div className="flex items-center gap-1.5 text-brand-gray-dark font-bold text-xs sm:text-sm">
+            <Filter className="w-3.5 h-3.5 text-brand-blue" />
+            <span>Filters</span>
+          </div>
+          <button
+            onClick={resetFilters}
+            className="text-[10px] font-bold text-brand-blue hover:text-brand-blue-hover flex items-center gap-0.5 transition-colors cursor-pointer"
+          >
+            <RotateCcw className="w-2.5 h-2.5" />
+            Clear all
+          </button>
         </div>
-        <button
-          onClick={resetFilters}
-          className="text-[10px] font-bold text-brand-blue hover:text-brand-blue-hover flex items-center gap-0.5 transition-colors cursor-pointer"
-        >
-          <RotateCcw className="w-2.5 h-2.5" />
-          Clear all
-        </button>
-      </div>
+      )}
 
       <div className="space-y-3">
         {/* Profile Filter */}
