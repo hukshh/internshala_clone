@@ -28,15 +28,15 @@ export function Layout({ children, filterSidebar }: LayoutProps) {
           </button>
         </div>
 
-        {/* Five-Column Grid (1/5 sidebar, 4/5 cards) */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
+        {/* Four-Column Grid (1/4 sidebar, 3/4 cards) */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
           {/* Desktop Filter Sidebar */}
           <div className="hidden lg:block lg:col-span-1 sticky top-[72px]">
             {filterSidebar}
           </div>
 
           {/* Internship Card List */}
-          <div className="col-span-1 lg:col-span-4">
+          <div className="col-span-1 lg:col-span-3">
             {children}
           </div>
         </div>
