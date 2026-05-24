@@ -84,17 +84,22 @@ export function InternshipList({ internships, isLoading, isError }: InternshipLi
   if (isLoading) {
     return (
       <div className="space-y-4">
-        <div className="h-6 w-48 bg-gray-200 animate-pulse rounded mb-4" />
+        <div className="h-5 w-32 bg-gray-200 animate-pulse rounded mb-3" />
         {[...Array(3)].map((_, i) => (
-          <div key={i} className="border border-brand-gray-border rounded-lg p-5 bg-white space-y-4">
-            <div className="space-y-2">
-              <Skeleton className="h-5 w-1/3" />
-              <Skeleton className="h-4 w-1/4" />
+          <div key={i} className="border border-gray-200/75 rounded-lg p-4 sm:p-5 bg-white space-y-4 shadow-sm">
+            <div className="space-y-2.5">
+              <Skeleton className="h-4 w-1/3" />
+              <Skeleton className="h-3 w-1/4" />
             </div>
-            <Skeleton className="h-12 w-full" />
-            <div className="flex justify-between items-center pt-2">
-              <Skeleton className="h-6 w-24" />
-              <Skeleton className="h-8 w-24" />
+            <div className="flex gap-8 border-t border-slate-100 pt-3.5 pb-1">
+              <Skeleton className="h-3 w-16" />
+              <Skeleton className="h-3 w-16" />
+              <Skeleton className="h-3 w-20" />
+              <Skeleton className="h-3 w-16" />
+            </div>
+            <div className="flex justify-between items-center pt-2 border-t border-slate-50">
+              <Skeleton className="h-5 w-24" />
+              <Skeleton className="h-4 w-16" />
             </div>
           </div>
         ))}
