@@ -14,18 +14,19 @@ interface SearchInputProps {
 export function SearchInput({ value, onChange, onClear, placeholder = 'Search...', className }: SearchInputProps) {
   return (
     <div className={`relative flex items-center ${className}`}>
-      <Search className="absolute left-2.5 w-3.5 h-3.5 text-gray-400" />
+      <Search className="absolute left-2.5 w-3.5 h-3.5 text-gray-400/80" />
       <input
         type="text"
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full h-8 pl-8 pr-7 text-xs bg-gray-50/40 border border-gray-200/70 rounded placeholder-gray-400/60 focus:outline-none focus:ring-1 focus:ring-brand-blue/20 focus:border-brand-blue focus:bg-white transition-all"
+        className="w-full h-8 pl-8 pr-7 text-xs bg-gray-50/30 border border-gray-200/50 rounded placeholder-gray-400/50 focus:outline-none focus:ring-1 focus:ring-brand-blue/10 focus:border-brand-blue/50 focus:bg-white transition-all"
       />
       {value && (
         <button
+          type="button"
           onClick={onClear}
-          className="absolute right-2.5 p-0.5 rounded-full hover:bg-gray-200 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+          className="absolute right-2.5 p-0.5 rounded-full hover:bg-gray-150 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
         >
           <X className="w-3 h-3" />
         </button>

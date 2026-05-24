@@ -29,15 +29,22 @@ export function InternshipList({ internships, isLoading, isError }: InternshipLi
       // 1. Text Search (title, company, profile, location)
       if (search) {
         const query = search.toLowerCase().trim();
-        const searchFields = [
-          internship.title,
-          internship.company_name,
-          internship.profile_name,
-          ...(internship.location_names || [])
-        ].map(f => (f || '').toLowerCase());
+        if (query) {
+          const queryWords = query.split(/\s+/);
+          const searchFields = [
+            internship.title,
+            internship.company_name,
+            internship.profile_name,
+            ...(internship.location_names || [])
+          ].map(f => (f || '').toLowerCase());
 
-        if (!searchFields.some(field => field.includes(query))) {
-          return false;
+          const matchesAllWords = queryWords.every(word =>
+            searchFields.some(field => field.includes(word))
+          );
+
+          if (!matchesAllWords) {
+            return false;
+          }
         }
       }
 
