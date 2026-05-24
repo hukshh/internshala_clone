@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { SlidersHorizontal, X, RotateCcw } from 'lucide-react';
+import { SlidersHorizontal, X, RotateCcw, Send } from 'lucide-react';
 import { Navbar } from './Navbar';
 import { useFilterStore } from '@/store/filterStore';
 
 interface LayoutProps {
   children: React.ReactNode;
   filterSidebar: React.ReactNode;
+  header?: React.ReactNode;
 }
 
-export function Layout({ children, filterSidebar }: LayoutProps) {
+export function Layout({ children, filterSidebar, header }: LayoutProps) {
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const resetFilters = useFilterStore((state) => state.resetFilters);
 
@@ -17,6 +18,8 @@ export function Layout({ children, filterSidebar }: LayoutProps) {
       <Navbar />
 
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
+        {header && <div className="w-full mb-3">{header}</div>}
+
         {/* Mobile Filter Button */}
         <div className="flex justify-end mb-3 lg:hidden">
           <button
@@ -41,6 +44,92 @@ export function Layout({ children, filterSidebar }: LayoutProps) {
           </div>
         </div>
       </main>
+
+      {/* Platform Footer */}
+      <footer className="bg-[#222222] text-[#EAEAEA] border-t border-gray-800 mt-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+          {/* Main Footer Links */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 select-none">
+            {/* Col 1 */}
+            <div>
+              <h4 className="text-[11px] font-extrabold text-white uppercase tracking-wider mb-4 border-b border-gray-800 pb-1.5">Internships by places</h4>
+              <ul className="space-y-1.5 text-xs text-gray-400 font-semibold">
+                {['India', 'Delhi', 'Bangalore', 'Hyderabad', 'Mumbai', 'Chennai', 'Pune', 'Kolkata'].map(item => (
+                  <li key={item}>
+                    <a href="#" className="hover:text-[#008BD3] transition-colors">{`Internships in ${item}`}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            {/* Col 2 */}
+            <div>
+              <h4 className="text-[11px] font-extrabold text-white uppercase tracking-wider mb-4 border-b border-gray-800 pb-1.5">Internships by stream</h4>
+              <ul className="space-y-1.5 text-xs text-gray-400 font-semibold">
+                {['Computer Science', 'Electronics', 'Mechanical', 'Civil', 'Chemical', 'Marketing', 'Finance', 'Graphic Design'].map(item => (
+                  <li key={item}>
+                    <a href="#" className="hover:text-[#008BD3] transition-colors">{item}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Col 3 */}
+            <div>
+              <h4 className="text-[11px] font-extrabold text-white uppercase tracking-wider mb-4 border-b border-gray-800 pb-1.5">Jobs by places</h4>
+              <ul className="space-y-1.5 text-xs text-gray-400 font-semibold">
+                {['Delhi', 'Mumbai', 'Bangalore', 'Hyderabad', 'Kolkata', 'Chennai', 'Pune'].map(item => (
+                  <li key={item}>
+                    <a href="#" className="hover:text-[#008BD3] transition-colors">{`Jobs in ${item}`}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Col 4 */}
+            <div>
+              <h4 className="text-[11px] font-extrabold text-white uppercase tracking-wider mb-4 border-b border-gray-800 pb-1.5">About Internshala</h4>
+              <ul className="space-y-1.5 text-xs text-gray-400 font-semibold">
+                {['About us', "We're hiring", 'Hire interns for your company', 'Team diary', 'Blog', 'Our services', 'Contact us'].map(item => (
+                  <li key={item}>
+                    <a href="#" className="hover:text-[#008BD3] transition-colors">{item}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Col 5 */}
+            <div>
+              <h4 className="text-[11px] font-extrabold text-white uppercase tracking-wider mb-4 border-b border-gray-800 pb-1.5">Resources</h4>
+              <ul className="space-y-1.5 text-xs text-gray-400 font-semibold">
+                {['Privacy', 'Terms', 'Security', 'Sitemap', 'Help Center', 'Mobile App'].map(item => (
+                  <li key={item}>
+                    <a href="#" className="hover:text-[#008BD3] transition-colors">{item}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            {/* Left Copyright */}
+            <div className="flex items-center gap-1 select-none">
+              <span className="text-[#008BD3] text-xs font-black tracking-widest uppercase">INTERNSHALA</span>
+              <Send className="w-3 h-3 text-[#008BD3] -rotate-[15deg] -translate-y-0.5 fill-[#008BD3]" />
+              <span className="text-xs text-gray-500 ml-3">© Copyright 2026 Internshala</span>
+            </div>
+
+            {/* Right Social Links */}
+            <div className="flex items-center gap-4 text-xs text-gray-400 font-semibold select-none">
+              <a href="#" className="hover:text-[#008BD3] transition-colors">Facebook</a>
+              <a href="#" className="hover:text-[#008BD3] transition-colors">Twitter</a>
+              <a href="#" className="hover:text-[#008BD3] transition-colors">LinkedIn</a>
+              <a href="#" className="hover:text-[#008BD3] transition-colors">Instagram</a>
+            </div>
+          </div>
+        </div>
+      </footer>
 
       {/* Mobile Filter Drawer Overlay */}
       {isMobileFilterOpen && (

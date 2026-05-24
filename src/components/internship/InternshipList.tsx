@@ -1,102 +1,31 @@
-import { useMemo } from 'react';
-import { useFilterStore } from '@/store/filterStore';
+import { Zap, Clock, ChevronRight, Award } from 'lucide-react';
 import type { Internship } from '@/types/internship';
 import { InternshipCard } from './InternshipCard';
 import { Skeleton } from '../ui/Skeleton';
 import { EmptyState } from '../ui/EmptyState';
+import { useFilterStore } from '@/store/filterStore';
 
 interface InternshipListProps {
-  internships: Internship[] | undefined;
+  filteredInternships: Internship[];
   isLoading: boolean;
   isError: boolean;
 }
 
-export function InternshipList({ internships, isLoading, isError }: InternshipListProps) {
+export function InternshipList({ filteredInternships, isLoading, isError }: InternshipListProps) {
   const {
     profile,
     location,
     wfh,
+    partTime,
     duration,
     minStipend,
     search,
     resetFilters,
   } = useFilterStore();
 
-  const filteredInternships = useMemo(() => {
-    if (!internships) return [];
-
-    const filtered = internships.filter((internship) => {
-      // 1. Text Search (title, company, profile, location)
-      if (search) {
-        const query = search.toLowerCase().trim();
-        if (query) {
-          const queryWords = query.split(/\s+/);
-          const searchFields = [
-            internship.title,
-            internship.company_name,
-            internship.profile_name,
-            ...(internship.location_names || [])
-          ].map(f => (f || '').toLowerCase());
-
-          const matchesAllWords = queryWords.every(word =>
-            searchFields.some(field => field.includes(word))
-          );
-
-          if (!matchesAllWords) {
-            return false;
-          }
-        }
-      }
-
-      // 2. Profile Filter (Case-insensitive)
-      if (profile && internship.profile_name?.toLowerCase() !== profile.toLowerCase()) {
-        return false;
-      }
-
-      // 3. WFH Filter
-      const isWfhInternship = internship.work_from_home ||
-        (internship.location_names && internship.location_names.some((loc) => 
-          loc.toLowerCase().includes('home') || loc.toLowerCase().includes('wfh')
-        ));
-
-      if (wfh && !isWfhInternship) {
-        return false;
-      }
-
-      // 4. Location Filter (Case-insensitive)
-      if (!wfh && location) {
-        const matchLoc = internship.location_names?.some((loc) => 
-          loc.toLowerCase() === location.toLowerCase()
-        );
-        if (!matchLoc) {
-          return false;
-        }
-      }
-
-      // 5. Duration Filter (Case-insensitive)
-      if (duration && internship.duration?.toLowerCase() !== duration.toLowerCase()) {
-        return false;
-      }
-
-      // 6. Stipend Filter
-      if (minStipend > 0) {
-        const salaryVal = internship.stipend?.salaryValue1 || 0;
-        if (salaryVal < minStipend) {
-          return false;
-        }
-      }
-
-      return true;
-    });
-
-    // Sort by latest first (descending timestamp order)
-    return filtered.sort((a, b) => b.postedOnDateTime - a.postedOnDateTime);
-  }, [internships, profile, location, wfh, duration, minStipend, search]);
-
   if (isLoading) {
     return (
       <div className="space-y-4">
-        <div className="h-5 w-32 bg-gray-200 animate-pulse rounded mb-3" />
         {[...Array(3)].map((_, i) => (
           <div key={i} className="border border-gray-200/75 rounded-lg p-3.5 sm:p-4.5 bg-white space-y-3.5 shadow-sm">
             <div className="space-y-2">
@@ -128,20 +57,64 @@ export function InternshipList({ internships, isLoading, isError }: InternshipLi
     );
   }
 
-  const hasActiveFilters = Boolean(profile || location || wfh || duration || minStipend > 0 || search);
+  const hasActiveFilters = Boolean(profile || location || wfh || partTime || duration || minStipend > 0 || search);
 
   return (
     <div className="space-y-4">
-      {/* Count Label */}
-      <div className="flex items-center justify-between">
-        <h2 className="text-sm sm:text-base font-bold text-brand-gray-dark">
-          {filteredInternships.length} {filteredInternships.length === 1 ? 'internship' : 'internships'} matching filters
-        </h2>
-      </div>
-
       {/* Listings or Empty State */}
       {filteredInternships.length > 0 ? (
-        <div className="space-y-4">
+        <div className="space-y-3.5">
+          {/* Promotional Banner Card matching Screenshot 1 */}
+          <div className="bg-white border border-amber-100/80 rounded-lg p-4 sm:p-4.5 hover:shadow-[0_2px_12px_rgba(0,0,0,0.02)] transition-shadow relative select-none">
+            {/* Offer badge in top-right */}
+            <span className="absolute top-4 right-4 bg-[#FF9800] text-white text-[9px] font-black px-2 py-0.5 rounded-xs select-none tracking-wide">
+              OFFER
+            </span>
+            
+            <div className="space-y-2 max-w-[85%]">
+              <h3 className="text-sm sm:text-base font-bold text-gray-800 leading-snug">
+                Get Internship and Job Preparation training FREE!
+              </h3>
+              <p className="text-xs sm:text-[13px] text-gray-500 font-semibold leading-none">
+                By enrolling in trainings at 55% + 10% OFF!
+              </p>
+
+              {/* Coupon and Timer */}
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 pt-1.5 text-[11px] font-semibold text-gray-500">
+                <span className="flex items-center gap-1">
+                  <Zap className="w-3.5 h-3.5 text-[#FF9800] fill-[#FF9800]" />
+                  <span>Use coupon: <span className="text-gray-800 font-black">GD10</span></span>
+                </span>
+                <span className="flex items-center gap-1">
+                  <Clock className="w-3.5 h-3.5 text-gray-400" />
+                  <span>Offer ends in <span className="text-gray-700 font-bold">01d: 00h: 32m: 16s</span></span>
+                </span>
+              </div>
+
+              {/* Description snippet */}
+              <p className="text-[11px] sm:text-xs text-gray-500 leading-relaxed font-medium pt-1">
+                Choose from Artificial Intelligence and Machine Learning, Full Stack Web Development with AI, Programming in Python with AI, Web Dev. & more
+              </p>
+
+              {/* Badges and action */}
+              <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100/50 mt-1">
+                <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 font-bold bg-emerald-50/50 border border-emerald-100/30 px-2 py-0.5 rounded">
+                  <Award className="w-3 h-3 text-emerald-600" />
+                  <span>Government Certified Trainings</span>
+                </span>
+                
+                <a 
+                  href="#" 
+                  className="inline-flex items-center gap-0.5 text-xs sm:text-[13px] font-black text-[#008BD3] hover:text-[#006CB7] transition-colors"
+                >
+                  <span>Enroll now</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Internship Listing Cards */}
           {filteredInternships.map((internship) => (
             <InternshipCard key={internship.id} internship={internship} />
           ))}
