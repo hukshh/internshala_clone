@@ -25,24 +25,24 @@ export function InternshipList({ internships, isLoading, isError }: InternshipLi
   const filteredInternships = useMemo(() => {
     if (!internships) return [];
 
-    return internships.filter((internship) => {
+    const filtered = internships.filter((internship) => {
       // 1. Text Search (title, company, profile, location)
       if (search) {
         const query = search.toLowerCase().trim();
-        const matchTitle = internship.title?.toLowerCase().includes(query);
-        const matchCompany = internship.company_name?.toLowerCase().includes(query);
-        const matchProfile = internship.profile_name?.toLowerCase().includes(query);
-        const matchLocs = internship.location_names?.some((loc) =>
-          loc.toLowerCase().includes(query)
-        );
+        const searchFields = [
+          internship.title,
+          internship.company_name,
+          internship.profile_name,
+          ...(internship.location_names || [])
+        ].map(f => (f || '').toLowerCase());
 
-        if (!matchTitle && !matchCompany && !matchProfile && !matchLocs) {
+        if (!searchFields.some(field => field.includes(query))) {
           return false;
         }
       }
 
-      // 2. Profile Filter
-      if (profile && internship.profile_name !== profile) {
+      // 2. Profile Filter (Case-insensitive)
+      if (profile && internship.profile_name?.toLowerCase() !== profile.toLowerCase()) {
         return false;
       }
 
@@ -56,20 +56,22 @@ export function InternshipList({ internships, isLoading, isError }: InternshipLi
         return false;
       }
 
-      // 4. Location Filter (only check if WFH is not checked)
+      // 4. Location Filter (Case-insensitive)
       if (!wfh && location) {
-        const matchLoc = internship.location_names?.some((loc) => loc === location);
+        const matchLoc = internship.location_names?.some((loc) => 
+          loc.toLowerCase() === location.toLowerCase()
+        );
         if (!matchLoc) {
           return false;
         }
       }
 
-      // 5. Duration Filter
-      if (duration && internship.duration !== duration) {
+      // 5. Duration Filter (Case-insensitive)
+      if (duration && internship.duration?.toLowerCase() !== duration.toLowerCase()) {
         return false;
       }
 
-      // 6. Stipend Filter (check stipend.salaryValue1)
+      // 6. Stipend Filter
       if (minStipend > 0) {
         const salaryVal = internship.stipend?.salaryValue1 || 0;
         if (salaryVal < minStipend) {
@@ -79,6 +81,9 @@ export function InternshipList({ internships, isLoading, isError }: InternshipLi
 
       return true;
     });
+
+    // Sort by latest first (descending timestamp order)
+    return filtered.sort((a, b) => b.postedOnDateTime - a.postedOnDateTime);
   }, [internships, profile, location, wfh, duration, minStipend, search]);
 
   if (isLoading) {
@@ -116,6 +121,8 @@ export function InternshipList({ internships, isLoading, isError }: InternshipLi
     );
   }
 
+  const hasActiveFilters = Boolean(profile || location || wfh || duration || minStipend > 0 || search);
+
   return (
     <div className="space-y-4">
       {/* Count Label */}
@@ -133,7 +140,11 @@ export function InternshipList({ internships, isLoading, isError }: InternshipLi
           ))}
         </div>
       ) : (
-        <EmptyState onReset={resetFilters} />
+        <EmptyState
+          title="No internships found for selected filters"
+          description={hasActiveFilters ? "Try adjusting your filters or search query to find what you are looking for." : "Check back later for new internship opportunities."}
+          onReset={hasActiveFilters ? resetFilters : undefined}
+        />
       )}
     </div>
   );
