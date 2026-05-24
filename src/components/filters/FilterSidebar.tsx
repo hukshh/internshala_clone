@@ -24,32 +24,32 @@ export function FilterSidebar({ profiles, locations, durations }: FilterSidebarP
   } = useFilterStore();
 
   return (
-    <div className="w-full bg-white border border-brand-gray-border rounded-lg p-5 shadow-sidebar">
+    <div className="w-full bg-white border border-gray-200/75 rounded-lg p-4 shadow-sm">
       {/* Header */}
-      <div className="flex items-center justify-between pb-4 mb-4 border-b border-brand-gray-border">
-        <div className="flex items-center gap-2 text-brand-gray-dark font-bold text-base">
-          <Filter className="w-4.5 h-4.5 text-brand-blue" />
+      <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
+        <div className="flex items-center gap-1.5 text-brand-gray-dark font-bold text-sm">
+          <Filter className="w-4 h-4 text-brand-blue" />
           <span>Filters</span>
         </div>
         <button
           onClick={resetFilters}
-          className="text-xs font-semibold text-brand-blue hover:text-brand-blue-hover flex items-center gap-1 transition-colors"
+          className="text-[11px] font-bold text-brand-blue hover:text-brand-blue-hover flex items-center gap-0.5 transition-colors cursor-pointer"
         >
-          <RotateCcw className="w-3 h-3" />
+          <RotateCcw className="w-2.5 h-2.5" />
           Clear all
         </button>
       </div>
 
-      <div className="space-y-5">
+      <div className="space-y-4">
         {/* Profile Filter */}
         <div>
-          <label className="block text-xs font-bold text-brand-gray mb-2 uppercase tracking-wider">
+          <label className="block text-[11px] font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">
             Profile
           </label>
           <select
             value={profile}
             onChange={(e) => setProfile(e.target.value)}
-            className="w-full h-10 px-3 border border-brand-gray-border rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue bg-white cursor-pointer hover:border-brand-gray transition-colors"
+            className="w-full h-9 px-2.5 border border-gray-200 rounded text-xs focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue bg-white cursor-pointer hover:border-gray-300 transition-colors"
           >
             <option value="">Select Profile</option>
             {profiles.map((p) => (
@@ -62,14 +62,14 @@ export function FilterSidebar({ profiles, locations, durations }: FilterSidebarP
 
         {/* Location Filter */}
         <div>
-          <label className="block text-xs font-bold text-brand-gray mb-2 uppercase tracking-wider">
+          <label className="block text-[11px] font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">
             Location
           </label>
           <select
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             disabled={wfh}
-            className="w-full h-10 px-3 border border-brand-gray-border rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue bg-white disabled:opacity-50 disabled:bg-brand-gray-light cursor-pointer hover:border-brand-gray transition-colors"
+            className="w-full h-9 px-2.5 border border-gray-200 rounded text-xs focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue bg-white disabled:opacity-50 disabled:bg-slate-50 cursor-pointer hover:border-gray-300 transition-colors"
           >
             <option value="">Select Location</option>
             {locations.map((loc) => (
@@ -81,7 +81,7 @@ export function FilterSidebar({ profiles, locations, durations }: FilterSidebarP
         </div>
 
         {/* WFH Checkbox */}
-        <div className="flex items-center gap-2.5 py-1">
+        <div className="flex items-center gap-2 py-0.5">
           <input
             type="checkbox"
             id="wfh-checkbox"
@@ -93,11 +93,11 @@ export function FilterSidebar({ profiles, locations, durations }: FilterSidebarP
                 setLocation('');
               }
             }}
-            className="w-4 h-4 rounded text-brand-blue focus:ring-brand-blue border-brand-gray-border cursor-pointer"
+            className="w-3.5 h-3.5 rounded text-brand-blue focus:ring-brand-blue border-gray-300 cursor-pointer"
           />
           <label
             htmlFor="wfh-checkbox"
-            className="text-sm font-semibold text-brand-gray-dark cursor-pointer select-none"
+            className="text-xs font-semibold text-brand-gray-dark cursor-pointer select-none"
           >
             Work from home
           </label>
@@ -105,13 +105,13 @@ export function FilterSidebar({ profiles, locations, durations }: FilterSidebarP
 
         {/* Duration Filter */}
         <div>
-          <label className="block text-xs font-bold text-brand-gray mb-2 uppercase tracking-wider">
+          <label className="block text-[11px] font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">
             Duration
           </label>
           <select
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
-            className="w-full h-10 px-3 border border-brand-gray-border rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue bg-white cursor-pointer hover:border-brand-gray transition-colors"
+            className="w-full h-9 px-2.5 border border-gray-200 rounded text-xs focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue bg-white cursor-pointer hover:border-gray-300 transition-colors"
           >
             <option value="">Select Duration</option>
             {durations.map((d) => (
@@ -124,18 +124,18 @@ export function FilterSidebar({ profiles, locations, durations }: FilterSidebarP
 
         {/* Stipend radio group */}
         <div>
-          <label className="block text-xs font-bold text-brand-gray mb-3 uppercase tracking-wider">
+          <label className="block text-[11px] font-semibold text-gray-500 mb-2 uppercase tracking-wide">
             Minimum Monthly Stipend
           </label>
-          <div className="space-y-2.5">
+          <div className="space-y-2">
             {STIPEND_OPTIONS.map((opt) => (
-              <label key={opt.value} className="flex items-center gap-2.5 text-sm text-brand-gray-dark font-medium cursor-pointer select-none">
+              <label key={opt.value} className="flex items-center gap-2 text-xs text-brand-gray-dark font-medium cursor-pointer select-none">
                 <input
                   type="radio"
                   name="min-stipend"
                   checked={minStipend === opt.value}
                   onChange={() => setMinStipend(opt.value)}
-                  className="w-4 h-4 text-brand-blue focus:ring-brand-blue border-brand-gray-border cursor-pointer"
+                  className="w-3.5 h-3.5 text-brand-blue focus:ring-brand-blue border-gray-300 cursor-pointer"
                 />
                 <span>{opt.label}</span>
               </label>
