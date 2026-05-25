@@ -7,46 +7,60 @@ interface LayoutProps {
   children: React.ReactNode;
   filterSidebar: React.ReactNode;
   header?: React.ReactNode;
+  extraBottomContent?: React.ReactNode;
+  fullWidthBottomContent?: React.ReactNode;
 }
 
-export function Layout({ children, filterSidebar, header }: LayoutProps) {
+export function Layout({ children, filterSidebar, header, extraBottomContent, fullWidthBottomContent }: LayoutProps) {
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const resetFilters = useFilterStore((state) => state.resetFilters);
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] flex flex-col">
+    <div className="min-h-screen bg-[#F8F9FA] dark:bg-[#121212] flex flex-col">
       <Navbar />
 
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
-        {header && <div className="w-full mb-3">{header}</div>}
+      <main className="flex-1 max-w-[980px] w-full mx-auto px-4 py-5">
+        {header && <div className="w-full mb-6 select-none">{header}</div>}
 
         {/* Mobile Filter Button */}
         <div className="flex justify-end mb-3 lg:hidden">
           <button
             onClick={() => setIsMobileFilterOpen(true)}
-            className="flex items-center gap-1 px-3 h-8 bg-white border border-gray-200 rounded shadow-sm text-xs font-semibold text-brand-gray-dark hover:bg-brand-gray-light cursor-pointer"
+            className="flex items-center gap-1 px-3 h-8 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded shadow-sm text-xs font-semibold text-brand-gray-dark dark:text-gray-300 hover:bg-brand-gray-light dark:hover:bg-zinc-750 cursor-pointer"
           >
             <SlidersHorizontal className="w-3 h-3 text-brand-blue" />
             Filters
           </button>
         </div>
 
-        {/* Four-Column Grid (1/4 sidebar, 3/4 cards) */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+        {/* Flex layout for exact Internshala spacing and proportions */}
+        <div className="flex flex-col lg:flex-row gap-6 items-start justify-center">
           {/* Desktop Filter Sidebar */}
-          <div className="hidden lg:block lg:col-span-1 sticky top-[72px]">
+          <div className="hidden lg:block w-[270px] flex-shrink-0 sticky top-[72px]">
             {filterSidebar}
           </div>
 
           {/* Internship Card List */}
-          <div className="col-span-1 lg:col-span-3">
+          <div className="flex-1 w-full max-w-[640px]">
             {children}
           </div>
         </div>
+
+        {extraBottomContent && (
+          <div className="w-full mt-10">
+            {extraBottomContent}
+          </div>
+        )}
       </main>
 
+      {fullWidthBottomContent && (
+        <div className="w-full">
+          {fullWidthBottomContent}
+        </div>
+      )}
+
       {/* Platform Footer */}
-      <footer className="bg-[#222222] text-[#EAEAEA] border-t border-gray-800 mt-8">
+      <footer className="bg-[#222222] text-[#EAEAEA] border-t border-gray-800 dark:border-zinc-900 mt-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
           {/* Main Footer Links */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 select-none">
@@ -133,10 +147,10 @@ export function Layout({ children, filterSidebar, header }: LayoutProps) {
 
       {/* Mobile Filter Drawer Overlay */}
       {isMobileFilterOpen && (
-        <div className="fixed inset-0 z-50 flex lg:hidden bg-black/30 backdrop-blur-xs transition-opacity duration-300">
-          <div className="relative ml-auto w-full max-w-[285px] h-full bg-white shadow-xl flex flex-col p-4 overflow-y-auto transform transition-transform duration-300 ease-out">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
-              <span className="text-sm font-bold text-brand-gray-dark">Filter Internships</span>
+        <div className="fixed inset-0 z-50 flex lg:hidden bg-black/40 backdrop-blur-xs transition-opacity duration-300">
+          <div className="relative ml-auto w-full max-w-[285px] h-full bg-white dark:bg-[#1E1E1E] shadow-xl flex flex-col p-4 overflow-y-auto transform transition-transform duration-300 ease-out">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-zinc-800 mb-4">
+              <span className="text-sm font-bold text-brand-gray-dark dark:text-gray-300">Filter Internships</span>
               <div className="flex items-center gap-3">
                 <button
                   type="button"
@@ -148,7 +162,7 @@ export function Layout({ children, filterSidebar, header }: LayoutProps) {
                 </button>
                 <button
                   onClick={() => setIsMobileFilterOpen(false)}
-                  className="p-1 rounded text-brand-gray hover:text-brand-gray-dark cursor-pointer"
+                  className="p-1 rounded text-brand-gray dark:text-gray-400 hover:text-brand-gray-dark dark:hover:text-gray-200 cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -166,7 +180,7 @@ export function Layout({ children, filterSidebar, header }: LayoutProps) {
               }
             </div>
             
-            <div className="pt-4 mt-3 border-t border-slate-100">
+            <div className="pt-4 mt-3 border-t border-slate-100 dark:border-zinc-800">
               <button
                 onClick={() => setIsMobileFilterOpen(false)}
                 className="w-full h-9 bg-brand-blue hover:bg-brand-blue-hover text-white text-xs font-bold rounded shadow transition-colors cursor-pointer"

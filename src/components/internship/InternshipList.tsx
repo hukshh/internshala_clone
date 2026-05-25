@@ -65,47 +65,47 @@ export function InternshipList({ filteredInternships, isLoading, isError }: Inte
       {filteredInternships.length > 0 ? (
         <div className="space-y-3.5">
           {/* Promotional Banner Card matching Screenshot 1 */}
-          <div className="bg-white border border-amber-100/80 rounded-lg p-4 sm:p-4.5 hover:shadow-[0_2px_12px_rgba(0,0,0,0.02)] transition-shadow relative select-none">
+          <div className="bg-white dark:bg-[#1E1E1E] border border-amber-100/80 dark:border-zinc-800 rounded-lg p-4 sm:p-4.5 hover:shadow-[0_2px_12px_rgba(0,0,0,0.02)] dark:hover:shadow-[0_2px_12px_rgba(0,0,0,0.1)] transition-shadow relative select-none">
             {/* Offer badge in top-right */}
             <span className="absolute top-4 right-4 bg-[#FF9800] text-white text-[9px] font-black px-2 py-0.5 rounded-xs select-none tracking-wide">
               OFFER
             </span>
             
             <div className="space-y-2 max-w-[85%]">
-              <h3 className="text-sm sm:text-base font-bold text-gray-800 leading-snug">
+              <h3 className="text-sm sm:text-base font-bold text-gray-800 dark:text-white leading-snug">
                 Get Internship and Job Preparation training FREE!
               </h3>
-              <p className="text-xs sm:text-[13px] text-gray-500 font-semibold leading-none">
+              <p className="text-xs sm:text-[13px] text-gray-505 dark:text-gray-400 font-semibold leading-none">
                 By enrolling in trainings at 55% + 10% OFF!
               </p>
 
               {/* Coupon and Timer */}
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 pt-1.5 text-[11px] font-semibold text-gray-500">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 pt-1.5 text-[11px] font-semibold text-gray-500 dark:text-gray-400">
                 <span className="flex items-center gap-1">
                   <Zap className="w-3.5 h-3.5 text-[#FF9800] fill-[#FF9800]" />
-                  <span>Use coupon: <span className="text-gray-800 font-black">GD10</span></span>
+                  <span>Use coupon: <span className="text-gray-800 dark:text-white font-black">GD10</span></span>
                 </span>
                 <span className="flex items-center gap-1">
                   <Clock className="w-3.5 h-3.5 text-gray-400" />
-                  <span>Offer ends in <span className="text-gray-700 font-bold">01d: 00h: 32m: 16s</span></span>
+                  <span>Offer ends in <span className="text-gray-700 dark:text-gray-300 font-bold">01d: 00h: 32m: 16s</span></span>
                 </span>
               </div>
 
               {/* Description snippet */}
-              <p className="text-[11px] sm:text-xs text-gray-500 leading-relaxed font-medium pt-1">
+              <p className="text-[11px] sm:text-xs text-gray-500 dark:text-gray-400 leading-relaxed font-medium pt-1">
                 Choose from Artificial Intelligence and Machine Learning, Full Stack Web Development with AI, Programming in Python with AI, Web Dev. & more
               </p>
 
               {/* Badges and action */}
-              <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100/50 mt-1">
-                <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 font-bold bg-emerald-50/50 border border-emerald-100/30 px-2 py-0.5 rounded">
+              <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100/50 dark:border-zinc-800 mt-1">
+                <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-100/30 dark:border-emerald-900/30 px-2 py-0.5 rounded">
                   <Award className="w-3 h-3 text-emerald-600" />
                   <span>Government Certified Trainings</span>
                 </span>
                 
                 <a 
                   href="#" 
-                  className="inline-flex items-center gap-0.5 text-xs sm:text-[13px] font-black text-[#008BD3] hover:text-[#006CB7] transition-colors"
+                  className="inline-flex items-center gap-0.5 text-xs sm:text-[13px] font-black text-[#008BD3] dark:text-[#00A5EC] hover:text-[#006CB7] dark:hover:text-[#008BD3] transition-colors"
                 >
                   <span>Enroll now</span>
                   <ChevronRight className="w-3.5 h-3.5" />
